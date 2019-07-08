@@ -33,11 +33,13 @@ const GlobalStyled = createGlobalStyle`
     }
 `
 
+const mobile : boolean = isMobile()
+
 const App = () => (
     <>
         <GlobalStyled />
         <ContentWrapper>
-            <Header mobile = {isMobile()}/>
+            <Header mobile = {mobile}/>
             <Route exact path="/" component={MainContainer}/>
             <Route exact path="/login" component={LoginContainer}/>
         </ContentWrapper>

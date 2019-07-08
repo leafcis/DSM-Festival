@@ -15,8 +15,9 @@ const CoinImageWrapper = styled.div`
     height: 60vh;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 `
 
 const CoinImage = styled.div`
@@ -49,6 +50,16 @@ const ListWrapper = styled.div`
     ${props => props.mobile ? `width: 100%;` : `width: 70%;`}
 `
 
+const RankingWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content;
+    color: #365dff;
+    font-family: 'Spoqa Han Sans';
+    font-weight: 900;
+    font-size: 3rem;
+`
+
 interface Props {
     point: number,
     mobile: boolean,
@@ -62,6 +73,9 @@ const Main: React.FC<Props> = ({point, mobile, buttonList} : Props) => {
                 <CoinImage mobile = {mobile}>
                     { point }
                 </CoinImage>
+                <RankingWrapper>
+                    Ranking : 5
+                </RankingWrapper>
             </CoinImageWrapper>
             <ListWrapper mobile = {mobile}>
                 {buttonList}

@@ -19,24 +19,22 @@ const SelectButtonWrapper = styled.div`
     background-color: rgba(36, 93, 255, 0.15);
     border-radius: 0.5rem;
     box-sizing: border-box;
-    padding-top: 6.9375vh;
-    padding-bottom: 6.9375vh;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    ${props => props.mobile ? `height: 33.125vh; width: 27vw;` : `height: 15rem; width: 15rem;`}
+    ${props => props.mobile ? `height: 23.125vh; width: 27vw; padding-top: 6.9375vh; padding-bottom: 6.9375vh;` : `height: 15rem; width: 15rem; padding-top: 6.38vh; padding-bottom: 6.38vh;`}
+    cursor: pointer;
 `
 
 const ImageWrapper = styled.div`
     background-image: url(${listImage});
-    width: 3.7vh;
-    height: 3.7vh;
+    ${props => props.mobile ? `width: 3.7vh; height: 3.7vh;` : `height: 6.66vh; width: 6.66vh;`}
     background-size: cover;
 `
 
 const ContentWrapper = styled.div`
     color: #365dff;
-    font-size: 2.3125vh;
+    ${props => props.mobile ? `font-size: 2.3125vh;` : `font-size: 3vh;`}
     font-weight: bold;
     font-family: 'Spoqa Han Sans';
 `
