@@ -5,6 +5,9 @@ import {Route} from 'react-router-dom'
 import LoginContainer from '../container/LoginContainer'
 import MainContainer from '../container/MainContainer'
 import Header from './Header'
+import isMobile from '../utils/isMobile'
+
+import ProductSans from '../../src/fonts/ProductSans.ttf';
 
 const ContentWrapper = styled.div`
     display: flex;
@@ -23,13 +26,18 @@ const GlobalStyled = createGlobalStyle`
         overflow: hidden;
         display: flex;
     }
+
+    @font-face {
+        font-family: ProductSans;
+        src: url(${ProductSans});
+    }
 `
 
 const App = () => (
     <>
         <GlobalStyled />
         <ContentWrapper>
-            <Header />
+            <Header mobile = {isMobile()}/>
             <Route exact path="/" component={MainContainer}/>
             <Route exact path="/login" component={LoginContainer}/>
         </ContentWrapper>

@@ -8,6 +8,7 @@ const MainWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 `
 
 const CoinImageWrapper = styled.div`
@@ -34,7 +35,7 @@ const CoinImage = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 8vh;
+    font-size: 4.16rem;
     font-family: ProductSans;
     color: #775f21;
     font-weight: 900;
@@ -43,9 +44,9 @@ const CoinImage = styled.div`
 const ListWrapper = styled.div`
     display: flex;
     height: 34.125vh;
-    width: 100%;
     justify-content: space-around;
     align-items: center;
+    ${props => props.mobile ? `width: 100%;` : `width: 70%;`}
 `
 
 interface Props {
@@ -55,7 +56,6 @@ interface Props {
 }
 
 const Main: React.FC<Props> = ({point, mobile, buttonList} : Props) => {
-    console.log(coinImage)
     return (
         <MainWrapper>
             <CoinImageWrapper>
@@ -63,7 +63,7 @@ const Main: React.FC<Props> = ({point, mobile, buttonList} : Props) => {
                     { point }
                 </CoinImage>
             </CoinImageWrapper>
-            <ListWrapper>
+            <ListWrapper mobile = {mobile}>
                 {buttonList}
             </ListWrapper>
         </MainWrapper>

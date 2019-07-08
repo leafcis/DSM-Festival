@@ -8,7 +8,8 @@ interface ButtonSelect {
 }
 
 interface Props {
-    data : ButtonSelect
+    data : ButtonSelect,
+    mobile : boolean,
 }
 
 const SelectButtonWrapper = styled.div`
@@ -23,6 +24,7 @@ const SelectButtonWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    ${props => props.mobile ? `height: 33.125vh; width: 27vw;` : `height: 15rem; width: 15rem;`}
 `
 
 const ImageWrapper = styled.div`
@@ -39,11 +41,11 @@ const ContentWrapper = styled.div`
     font-family: 'Spoqa Han Sans';
 `
 
-const SelectButton : React.FC<Props> = ({data} : Props) => {
+const SelectButton : React.FC<Props> = ({data, mobile} : Props) => {
     return (
-        <SelectButtonWrapper>
-            <ImageWrapper />
-            <ContentWrapper>
+        <SelectButtonWrapper mobile = {mobile} >
+            <ImageWrapper mobile = {mobile}/>
+            <ContentWrapper mobile = {mobile}>
                 {data.kind}
             </ContentWrapper>
         </SelectButtonWrapper>
