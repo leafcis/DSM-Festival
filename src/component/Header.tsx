@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { useStore } from 'react-redux'
 
 const HeaderWrapper = styled.div`
     width: 100vw;
@@ -13,7 +14,8 @@ const HeaderWrapper = styled.div`
 const LogoWrppaer = styled.div`
     font-family: ProductSans;
     color: #365dff;
-    ${ props => props.mobile ? `font-size: 1rem; padding-left: 1rem; padding-right: 1.66925rem;` : `font-size: 1.75rem;     padding-left: 2.25rem;` }
+    width: 10rem;
+    ${ props => props.mobile ? `font-size: 1rem; padding-left: 1rem;` : `font-size: 1.75rem;  padding-left: 2.25rem;` }
 `
 
 const StudentWrppaer = styled.div`
@@ -29,8 +31,11 @@ const StudentWrppaer = styled.div`
 `
 
 const LoginWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
     font-family: ProductSans;
-    ${ props => props.mobile ? `font-size: 1rem; padding-right: 1rem;` : `font-size: 1.75rem; padding-right: 2.25rem; padding-left: 2.59275rem;` }
+    width: 10rem;
+    ${ props => props.mobile ? `font-size: 1rem; padding-right: 1rem;` : `font-size: 1.75rem; padding-right: 2.25rem;` }
     color: #959595;
 `
 
@@ -39,16 +44,23 @@ interface Props {
 }
 
 const Header : React.FC<Props> = ({mobile} : Props) => {
+    const store = useStore().getState()
     return (
         <HeaderWrapper>
             <LogoWrppaer mobile = {mobile}>
                 { mobile ? 'DSM' : 'DSM Festival' }
             </LogoWrppaer>
-            <StudentWrppaer mobile = {mobile}>
-                3311 윤석민
-            </StudentWrppaer>
+            { store.isLogin ?
+                <StudentWrppaer mobile = {mobile}>
+                    3311 윤석민
+                </StudentWrppaer>
+                :
+                null
+            }
             <LoginWrapper mobile = {mobile}>
-                LOGOUT
+                {   store.isLogin ?
+                    'Logout' : 'Login'
+                }
             </LoginWrapper>
         </HeaderWrapper>
     );

@@ -10,6 +10,7 @@ interface ButtonSelect {
 interface Props {
     data : ButtonSelect,
     mobile : boolean,
+    setState : Function
 }
 
 const SelectButtonWrapper = styled.div`
@@ -39,9 +40,9 @@ const ContentWrapper = styled.div`
     font-family: 'Spoqa Han Sans';
 `
 
-const SelectButton : React.FC<Props> = ({data, mobile} : Props) => {
+const SelectButton : React.FC<Props> = ({data, mobile, setState} : Props) => {
     return (
-        <SelectButtonWrapper mobile = {mobile} >
+        <SelectButtonWrapper mobile = {mobile} onClick = {() => setState(data.uri)}>
             <ImageWrapper mobile = {mobile}/>
             <ContentWrapper mobile = {mobile}>
                 {data.kind}

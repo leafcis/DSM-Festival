@@ -1,10 +1,13 @@
 import * as React from 'react'
 import Login from '../component/Login'
+import isMobile from '../utils/isMobile'
 
 interface State {
     id : string,
     password : string
 }
+
+const mobile : boolean = isMobile()
 
 const LoginContainer : React.FC = () => {
     const [account, setAccount] = React.useState<State>({
@@ -13,7 +16,7 @@ const LoginContainer : React.FC = () => {
     });
 
     return ( 
-        <Login account = {account} onLogin = {setAccount}/>
+        <Login mobile = {mobile} account = {account} onLogin = {setAccount}/>
     )
 }
 

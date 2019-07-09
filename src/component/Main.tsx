@@ -25,10 +25,12 @@ const CoinImage = styled.div`
         `
             height: 25vh;
             width: 25vh;
+            font-size: 8vh;
         ` : 
         `
             height: 37vh;
-            width: 37vh;   
+            width: 37vh;
+            font-size: 12vh;
         `
     }
     background-image: url(${coinImage});
@@ -36,7 +38,6 @@ const CoinImage = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4.16rem;
     font-family: ProductSans;
     color: #775f21;
     font-weight: 900;

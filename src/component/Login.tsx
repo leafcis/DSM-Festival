@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components' 
 
 const LoginWrapper = styled.div`
     height: calc(100vh - 5rem);
@@ -11,15 +11,40 @@ const LoginWrapper = styled.div`
 `
 
 const InputWrapper = styled.div`
-    height: 50vh;
-    width: 50vw;
-    background-color: rgba(36, 93, 255, 0.16);
-    border-radius: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 25vh;
+`
+
+const Button = styled.button`
+    appearance: none;
+    border: none;
+    ${props => props.mobile ? `width: 80vw;` : `width: 24vw;`}
+    border-radius: 0.5rem;
+    height: 6vh;
+    font-size: 2.22vh;
+    font-family: 'Spoqa Han Sans';
+    background-color: #365dff;
+    color: #ffffff;
 `
 
 const Input = styled.input`
-    width: 30vw;
-    height: 5rem;
+    border: solid 2px #959595;
+    height: 6vh;
+    box-sizing: border-box;
+    font-size: 2.22vh;
+    font-family: 'Spoqa Han Sans';
+    border-radius: 0.5rem;
+
+    ${props => props.mobile ? `width: 80vw;` : `width: 24vw;`}
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    &:focus {
+        border: solid 2px #365dff;
+    }
 `
 
 interface State {
@@ -28,21 +53,25 @@ interface State {
 }
 
 interface Props {
+    mobile : boolean,
     account : State,
     onLogin : Function
 }
 
-const Login : FC<Props> = ({account, onLogin}) => {
+const Login : FC<Props> = ({mobile, account, onLogin}) => {
     console.log(account)
     return (
         <LoginWrapper>
             <InputWrapper>
-                <Input value = {account.id} onChange = {(e) => onLogin({
+                <Input mobile = {mobile} placeholder = "ID" value = {account.id} onChange = {(e) => onLogin({
                     ...account, id : e.target.value
                 })}/>
-                <Input value = {account.password} onChange = {(e) => onLogin({
+                <Input type = "password" mobile = {mobile} placeholder = "Password" value = {account.password} onChange = {(e) => onLogin({
                     ...account, password : e.target.value
                 })}/>
+                <Button mobile = {mobile}>
+                    DMS 계정으로 로그인
+                </Button>
             </InputWrapper>
         </LoginWrapper>
     );

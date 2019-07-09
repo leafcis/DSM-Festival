@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled, {createGlobalStyle} from 'styled-components';
-import {Route} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import LoginContainer from '../container/LoginContainer'
 import MainContainer from '../container/MainContainer'
