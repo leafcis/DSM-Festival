@@ -3,7 +3,7 @@ import Main from '../component/Main';
 import SelectButton from '../component/SelectButton'
 import isMobile from '../utils/isMobile'
 import ModalContainer from './ModalContainer'
-import { useStore } from 'react-redux'
+import { useStore, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 interface ButtonSelect {

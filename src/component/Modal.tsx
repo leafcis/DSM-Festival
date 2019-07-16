@@ -12,7 +12,7 @@ const ModalWrapper = styled.div`
     justify-content: center;
 
     .wrapper {
-        width: 34vw;
+        ${props => props.mobile ? `width: 80vw;` : `width: 34vw;`}
         height: 81vh;
         background-color: #ffffff;
         border-radius: 0.5rem;
@@ -34,20 +34,22 @@ const ModalWrapper = styled.div`
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
-            width: 34vw;
+            ${props => props.mobile ? `width: 80vw;` : `width: 34vw;`}
         }
     }
 `
 
 interface Props {
-    setState : Function
+    mobile : boolean,
+    setState : Function,
+    state : string | null
 }
 
-const Modal : FC<Props> = ({setState}) => {
+const Modal : FC<Props> = ({mobile, setState, state}) => {
     return (
-        <ModalWrapper onClick = {() => setState(null)}>
+        <ModalWrapper mobile = {mobile} onClick = {() => setState(null)}>
             <div className = "wrapper" onClick = {(e) => e.stopPropagation()}>
-                <h1>이용내역</h1>
+                <h1>{state === 'rate' ? '평가' : '이용내역'}</h1>
                 <div>
 
                 </div>
