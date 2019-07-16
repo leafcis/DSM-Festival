@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled, {createGlobalStyle} from 'styled-components';
 import { Route } from 'react-router-dom'
+import { useSelector, shallowEqual } from 'react-redux'
 
 import LoginContainer from '../container/LoginContainer'
 import MainContainer from '../container/MainContainer'
@@ -33,17 +34,25 @@ const GlobalStyled = createGlobalStyle`
     }
 `
 
+interface state {
+    isLogin : boolean
+}
+
 const mobile : boolean = isMobile()
 
-const App = () => (
-    <>
-        <GlobalStyled />
-        <ContentWrapper>
-            <Header mobile = {mobile}/>
-            <Route exact path="/" component={MainContainer}/>
-            <Route exact path="/login" component={LoginContainer}/>
-        </ContentWrapper>
-    </>
-)
+const App = () => {
+    const store = useSelector((state : state) => state.isLogin, shallowEqual);
+    console.log(store)
+    return (
+        <>
+            <GlobalStyled />
+            <ContentWrapper>
+                <Header mobile = {mobile} store = {store}/>
+                <Route exact path="/" component={MainContainer}/>
+                <Route exact path="/login" component={LoginContainer}/>
+            </ContentWrapper>
+        </>
+    )
+}
 
 export default App;

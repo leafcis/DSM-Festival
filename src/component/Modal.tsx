@@ -10,6 +10,7 @@ const ModalWrapper = styled.div`
     background-color: rgba(0, 0, 0, 0.16);
     align-items: center;
     justify-content: center;
+    z-index: 999;
 
     .wrapper {
         ${props => props.mobile ? `width: 80vw;` : `width: 34vw;`}
@@ -49,7 +50,7 @@ const Modal : FC<Props> = ({mobile, setState, state}) => {
     return (
         <ModalWrapper mobile = {mobile} onClick = {() => setState(null)}>
             <div className = "wrapper" onClick = {(e) => e.stopPropagation()}>
-                <h1>{state === 'rate' ? '평가' : '이용내역'}</h1>
+                <h1>{state === 'ranking' ? '개인 순위' : state === 'history' ? '이용내역' : state === 'rate' ? '평가' : null}</h1>
                 <div>
 
                 </div>

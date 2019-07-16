@@ -4,32 +4,56 @@ import SelectButton from '../component/SelectButton'
 import isMobile from '../utils/isMobile'
 import ModalContainer from './ModalContainer'
 import { useStore, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
+import { getCookie, setCookie, removeCookie } from '../utils/cookie'
+import axios from 'axios'
+import urlAddress from '../utils/urlAddress'
+import { ISLOGIN } from '../actions/index'
 
 interface ButtonSelect {
     kind: string,
     uri: string
 }
 
-const MainContainer : React.FC = () => {
+const MainContainer : React.FC<RouteComponentProps> = ({history}) => {
+    const dispatch = useDispatch()
     const store = useStore().getState()
     const [state, setState] = React.useState(null)
+    const [point, setPoint] = React.useState("?")
+    React.useEffect(() => {
+        const check = async () => {
+                try {
+                    const result = await axios.get(urlAddress + 'info', {
+                        headers : {
+                            Authorization: `Bearer ${getCookie('token')}`   
+                        }
+                    })
+                    setPoint(result.data.point);
+                    dispatch(ISLOGIN(true))
+                }
+                catch (error) {
+                    if(getCookie('token') === null && store.isLogin)
+                        alert('토큰이 만료되었습니다.')
+                    removeCookie('token')
+                    history.push('/login')
+                }
+        }
+        check()
+    }, [])
     const mobile : boolean = isMobile();
-    const button: ButtonSelect[] = [{ kind : "평가", uri : "rate" },{ kind : "이용내역", uri : "history" },{ kind : "주식", uri : "stock" }];
+    const button: ButtonSelect[] = [{ kind : "개인 순위", uri : "ranking" },{ kind : "이용내역", uri : "history" },{ kind : "평가", uri : "stock" }];
     const buttonList : React.ReactElement[] = button.map((data : ButtonSelect) => {
         return <SelectButton key = {data.kind} data = {data} mobile = {mobile} setState = {setState}  />
     })
     return (
-        <>
-          {
-
-              <>
-                <ModalContainer state = {state} setState = {setState}/>
-                <Main buttonList = {buttonList} mobile = {mobile} point = {100}/>
+              <> 
+                { store.isLogin &&
+                    <>
+                        <ModalContainer state = {state} setState = {setState}/>
+                        <Main buttonList = {buttonList} mobile = {mobile} point = {point}/>
+                    </>
+                }
               </>
-
-          }
-        </>
     );
 };
 

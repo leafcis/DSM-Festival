@@ -55,21 +55,21 @@ interface State {
 interface Props {
     mobile : boolean,
     account : State,
-    onLogin : Function
+    onLogin : Function,
+    onLoginHandle : Function
 }
 
-const Login : FC<Props> = ({mobile, account, onLogin}) => {
-    console.log(account)
+const Login : FC<Props> = ({mobile, account, onLogin, onLoginHandle}) => {
     return (
         <LoginWrapper>
             <InputWrapper>
-                <Input mobile = {mobile} placeholder = "ID" value = {account.id} onChange = {(e) => onLogin({
+                <Input onKeyPress = {(e) => {if(e.key === 'Enter') onLoginHandle()}} mobile = {mobile} placeholder = "ID" value = {account.id} onChange = {(e) => onLogin({
                     ...account, id : e.target.value
                 })}/>
-                <Input type = "password" mobile = {mobile} placeholder = "Password" value = {account.password} onChange = {(e) => onLogin({
+                <Input onKeyPress = {(e) => {if(e.key === 'Enter') onLoginHandle()}} type = "password" mobile = {mobile} placeholder = "Password" value = {account.password} onChange = {(e) => onLogin({
                     ...account, password : e.target.value
                 })}/>
-                <Button mobile = {mobile}>
+                <Button onClick = {onLoginHandle} mobile = {mobile}>
                     DMS 계정으로 로그인
                 </Button>
             </InputWrapper>

@@ -1,6 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { useStore } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { ISLOGIN } from '../actions'
+import { getCookie, removeCookie } from '../utils/cookie';
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+import urlAddress from '../utils/urlAddress'
+import axios from 'axios'
 
 const HeaderWrapper = styled.div`
     width: 100vw;
@@ -39,26 +44,49 @@ const LoginWrapper = styled.div`
     color: #959595;
 `
 
-interface Props {
-    mobile : boolean
+interface store {
+    isLogin : boolean
 }
 
-const Header : React.FC<Props> = ({mobile} : Props) => {
-    const store = useStore().getState()
+interface Props {
+    mobile : boolean,
+    store : store,
+}
+
+interface state {
+    name : string,
+    number : string
+}
+
+const Header : React.FC<RouteComponentProps & Props> = ({history, mobile, store}) => {
+    const [account, setAccount] = React.useState<state>({name : '', number : ''})
+    const dispatch = useDispatch()
+    React.useEffect(() => {
+        const check = async () => {
+                    const result = await axios.get(urlAddress + 'info', {
+                        headers : {
+                            Authorization: `Bearer ${getCookie('token')}`   
+                        }
+                    })
+                    setAccount({...account, name : result.data.name, number : result.data.number});
+                    dispatch(ISLOGIN(true))
+        }
+        check()
+    }, [])
     return (
         <HeaderWrapper>
             <LogoWrppaer mobile = {mobile}>
                 { mobile ? 'DSM' : 'DSM Festival' }
             </LogoWrppaer>
-            { store.isLogin ?
+            { store ?
                 <StudentWrppaer mobile = {mobile}>
-                    3311 윤석민
+                    {account.number} {account.name.slice(0, 3)} 
                 </StudentWrppaer>
                 :
                 null
             }
-            <LoginWrapper mobile = {mobile}>
-                {   store.isLogin ?
+            <LoginWrapper mobile = {mobile} onClick = {() => {dispatch(ISLOGIN(false)); removeCookie('token'); history.push('/login')}}>
+                {   store ?
                     'Logout' : 'Login'
                 }
             </LoginWrapper>
@@ -66,4 +94,4 @@ const Header : React.FC<Props> = ({mobile} : Props) => {
     );
 };
 
-export default Header;
+export default withRouter(Header);

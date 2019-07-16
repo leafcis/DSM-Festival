@@ -72,7 +72,7 @@ const RankingWrapper = styled.div`
 `
 
 interface Props {
-    point: number,
+    point: string,
     mobile: boolean,
     buttonList: React.ReactElement[],
 }
@@ -80,9 +80,9 @@ interface Props {
 const Main: React.FC<Props> = ({point, mobile, buttonList} : Props) => {
     return (
         <MainWrapper>
-            <RankingWrapper mobile = {mobile}>
+            {/*<RankingWrapper mobile = {mobile}>
                 5
-            </RankingWrapper>
+    </RankingWrapper>*/}
             <CoinImageWrapper>
                 <CoinImage mobile = {mobile}>
                         { point }
