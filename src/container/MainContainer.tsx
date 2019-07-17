@@ -41,7 +41,7 @@ const MainContainer : React.FC<RouteComponentProps> = ({history}) => {
         check()
     }, [])
     const mobile : boolean = isMobile();
-    const button: ButtonSelect[] = [{ kind : "개인 순위", uri : "ranking" },{ kind : "이용내역", uri : "history" },{ kind : "평가", uri : "stock" }];
+    const button: ButtonSelect[] = [{ kind : "개인순위", uri : "rank" },{ kind : "이용내역", uri : "history" },{ kind : "공연정보", uri : "info" }];
     const buttonList : React.ReactElement[] = button.map((data : ButtonSelect) => {
         return <SelectButton key = {data.kind} data = {data} mobile = {mobile} setState = {setState}  />
     })

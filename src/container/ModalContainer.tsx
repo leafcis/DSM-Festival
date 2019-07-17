@@ -1,7 +1,10 @@
-import React, {FC, ReactElement, useEffect} from 'react';
+import React, {FC, ReactElement, useEffect, useState} from 'react';
 import Modal from '../component/Modal'
 import isMobile from '../utils/isMobile'
 import axios from 'axios'
+import urlAddress from '../utils/urlAddress';
+import { getCookie } from '../utils/cookie';
+import ModalList from '../component/ModalList';
 
 interface Props {
     state : string | null,
@@ -11,22 +14,34 @@ interface Props {
 const mobile : boolean = isMobile()
 
 const ModalContainer : FC<Props> = ({state, setState}) => {
-    // useEffect(() => {
-    //     axios.
-    // }, [state])
-    let RenderComponent : ReactElement | null = null;
-    if(state === 'ranking') {
-        RenderComponent = <Modal mobile = {mobile} setState = {setState} state = {state}/>
-    }
-    else if(state === 'history') {
-        RenderComponent = <Modal mobile = {mobile} setState = {setState} state = {state}/>
-    }
-    else if(state === 'rate') {
-        RenderComponent = <Modal mobile = {mobile} setState = {setState} state = {state}/>
-    }
+    let rank = 1;
+    const [loading, setLoading] = useState(false);
+    const [list, setList] = useState([]);
+    useEffect(() => {
+        if(state !== null && state !== 'info') {
+            const check = async () => {
+                try {
+                    const result = await axios.get(urlAddress + state, {
+                        headers : {
+                            Authorization: getCookie('token')
+                        }
+                    })
+                    const key = Object.keys(result.data)
+                    setList(result.data[key[0]].map((data) => {
+                        return <ModalList state = {state} data = {data} rank = {rank++}/>
+                    }))
+                    setLoading(true)
+                }
+                catch (err) {
+                    console.log(err)
+                }
+            }
+            check()
+        }
+    }, [state])
     return (
         <>
-        { RenderComponent }
+            { state !== null && loading === true && <Modal mobile = {mobile} setState = {setState} state = {state} list = {list}/>}
         </>
     );
 };

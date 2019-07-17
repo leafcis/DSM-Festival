@@ -30,10 +30,13 @@ const ModalWrapper = styled.div`
             color: #365dff;
         }
 
-        div {
+        .list--wrapper {
+            padding-left: 3.3vw;
+            padding-right: 3.3vw;
             height: 70vh;
             background-color: #ffffff;
             display: flex;
+            box-sizing: border-box;
             flex-direction: column;
             ${props => props.mobile ? `width: 80vw;` : `width: 34vw;`}
         }
@@ -43,16 +46,17 @@ const ModalWrapper = styled.div`
 interface Props {
     mobile : boolean,
     setState : Function,
-    state : string | null
+    state : string | null,
+    list : React.ReactElement[]
 }
 
-const Modal : FC<Props> = ({mobile, setState, state}) => {
+const Modal : FC<Props> = ({mobile, setState, state, list}) => {
     return (
         <ModalWrapper mobile = {mobile} onClick = {() => setState(null)}>
             <div className = "wrapper" onClick = {(e) => e.stopPropagation()}>
-                <h1>{state === 'ranking' ? '개인 순위' : state === 'history' ? '이용내역' : state === 'rate' ? '평가' : null}</h1>
-                <div>
-
+                <h1>{state === 'rank' ? '개인순위' : state === 'history' ? '이용내역' : state === 'info' ? '공연정보' : null}</h1>
+                <div className = "list--wrapper">
+                    { list }
                 </div>
             </div>
         </ModalWrapper>
