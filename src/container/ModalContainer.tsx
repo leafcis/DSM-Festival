@@ -26,7 +26,6 @@ const ModalContainer : FC<Props> = ({state, setState}) => {
                             Authorization: `Bearer ${getCookie('token')}`
                         }
                     })
-                    console.log(result)
                     const key = Object.keys(result.data)
                     setList(result.data[key[0]].map((data) => {
                         return <ModalList key = {rank} state = {state} data = {data} rank = {rank++}/>
