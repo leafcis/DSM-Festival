@@ -13,8 +13,8 @@ const ListWrapper = styled.div`
     }
 
     & .name, & .point {
-        font-size: 1.25rem;
-        height: 2.5rem;
+        font-size: 1.5rem;
+        height: 3rem;
         font-weight: 900;
     }
 
@@ -30,7 +30,7 @@ interface data {
 
 interface Props {
     state : string,
-    data : data
+    data? : data
     rank? : number
 }
 

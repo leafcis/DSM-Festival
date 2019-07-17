@@ -13,13 +13,16 @@ const ModalWrapper = styled.div`
     z-index: 999;
 
     .wrapper {
+        box-sizing: border-box;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
         ${props => props.mobile ? `width: 80vw;` : `width: 34vw;`}
         height: 81vh;
         background-color: #ffffff;
         border-radius: 0.5rem;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
 
         h1 {
@@ -33,11 +36,13 @@ const ModalWrapper = styled.div`
         .list--wrapper {
             padding-left: 3.3vw;
             padding-right: 3.3vw;
-            height: 70vh;
+            height: 60vh;
             background-color: #ffffff;
             display: flex;
             box-sizing: border-box;
             flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
             ${props => props.mobile ? `width: 80vw;` : `width: 34vw;`}
         }
     }
@@ -54,10 +59,14 @@ const Modal : FC<Props> = ({mobile, setState, state, list}) => {
     return (
         <ModalWrapper mobile = {mobile} onClick = {() => setState(null)}>
             <div className = "wrapper" onClick = {(e) => e.stopPropagation()}>
-                <h1>{state === 'rank' ? '개인순위' : state === 'history' ? '이용내역' : state === 'info' ? '공연정보' : null}</h1>
+                <h1>{state === 'rank' ? '순위' : state === 'history' ? '이용내역' : state === 'info' ? '공연정보' : null}</h1>
+                {state !== null && state !== 'info' ?
                 <div className = "list--wrapper">
                     { list }
                 </div>
+                :
+                <div className = "info--image" />
+                }
             </div>
         </ModalWrapper>
     );

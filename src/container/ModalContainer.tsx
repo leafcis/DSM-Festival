@@ -38,6 +38,9 @@ const ModalContainer : FC<Props> = ({state, setState}) => {
             }
             check()
         }
+        else if(state === 'info'){
+            <ModalList state = {state}/>
+        }
     }, [state])
     return (
         <>
