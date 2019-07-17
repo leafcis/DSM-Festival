@@ -35,7 +35,6 @@ interface Props {
 }
 
 const ModalList : FC<Props> = ({state, data, rank}) => {
-    console.log(data)
     return (
         <ListWrapper>
             {state === 'rank' && <>  <div className = "name">{rank}.{data.name}</div><div className = "point">{data.point}</div></>}

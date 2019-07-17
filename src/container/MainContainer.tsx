@@ -28,7 +28,6 @@ const MainContainer : React.FC<RouteComponentProps> = ({history}) => {
                             Authorization: `Bearer ${getCookie('token')}`   
                         }
                     })
-                    console.log(result)
                     setPoint(result.data.point);
                     dispatch(ISLOGIN(true))
                 }

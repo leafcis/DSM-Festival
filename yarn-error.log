@@ -65,7 +65,8 @@ npm manifest:
       "webpack-dev-server": "^3.7.2"
     },
     "scripts": {
-      "start": "webpack-dev-server"
+      "start": "webpack-dev-server",
+      "build": "webpack"
     }
   }
 

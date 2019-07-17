@@ -42,7 +42,6 @@ const mobile : boolean = isMobile()
 
 const App = () => {
     const store = useSelector((state : state) => state.isLogin, shallowEqual);
-    console.log(store)
     return (
         <>
             <GlobalStyled />
