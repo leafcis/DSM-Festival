@@ -43,9 +43,10 @@ const ModalWrapper = styled.div`
             display: flex;
             box-sizing: border-box;
             flex-direction: column;
-            justify-content: space-between;
             align-items: center;
             ${props => props.mobile ? `width: 80vw;` : `width: 100%;`}
+            overflow-x: hidden;
+            overflow-y: scroll;
         }
 
         .info--image {

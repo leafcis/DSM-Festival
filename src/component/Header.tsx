@@ -62,6 +62,7 @@ const Header : React.FC<RouteComponentProps & Props> = ({history, mobile, store}
     const [account, setAccount] = React.useState<state>({name : '', number : ''})
     const dispatch = useDispatch()
     React.useEffect(() => {
+        try{
         const check = async () => {
                     const result = await axios.get(urlAddress + 'info', {
                         headers : {
@@ -72,6 +73,10 @@ const Header : React.FC<RouteComponentProps & Props> = ({history, mobile, store}
                     dispatch(ISLOGIN(true))
         }
         check()
+    }
+    catch(err) {
+
+    }
     }, [store])
     return (
         <HeaderWrapper>

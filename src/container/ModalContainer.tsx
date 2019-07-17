@@ -23,7 +23,7 @@ const ModalContainer : FC<Props> = ({state, setState}) => {
                 try {
                     const result = await axios.get(urlAddress + state, {
                         headers : {
-                            Authorization: getCookie('token')
+                            Authorization: `Bearer ${getCookie('token')}`
                         }
                     })
                     console.log(result)
@@ -33,7 +33,6 @@ const ModalContainer : FC<Props> = ({state, setState}) => {
                     }))
                 }
                 catch (err) {
-                    console.log(err)
                 }
             }
             check()
