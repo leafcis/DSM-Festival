@@ -13,8 +13,8 @@ const ListWrapper = styled.div`
     }
 
     & .name, & .point {
-        font-size: 1.5rem;
-        height: 3rem;
+        font-size: 3vh;
+        height: 3vh;
         font-weight: 900;
     }
 
@@ -38,8 +38,7 @@ const ModalList : FC<Props> = ({state, data, rank}) => {
     console.log(data)
     return (
         <ListWrapper>
-            <div className = "name">{state === 'rank' && rank}.{data.name}</div>
-            {state === 'rank' && <div className = "point">{data.point}</div>}
+            {state === 'rank' && <>  <div className = "name">{rank}.{data.name}</div><div className = "point">{data.point}</div></>}
         </ListWrapper>
     );
 };

@@ -30,7 +30,6 @@ const ModalContainer : FC<Props> = ({state, setState}) => {
                     setList(result.data[key[0]].map((data) => {
                         return <ModalList state = {state} data = {data} rank = {rank++}/>
                     }))
-                    setLoading(true)
                 }
                 catch (err) {
                     console.log(err)
@@ -41,6 +40,10 @@ const ModalContainer : FC<Props> = ({state, setState}) => {
         else if(state === 'info'){
             <ModalList state = {state}/>
         }
+        else if(state === null) {
+            setList([])
+        }
+        setLoading(true)
     }, [state])
     return (
         <>

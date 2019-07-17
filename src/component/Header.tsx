@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useStore } from 'react-redux'
 import { ISLOGIN } from '../actions'
 import { getCookie, removeCookie } from '../utils/cookie';
 import { withRouter, RouteComponentProps } from 'react-router-dom'
@@ -72,7 +72,7 @@ const Header : React.FC<RouteComponentProps & Props> = ({history, mobile, store}
                     dispatch(ISLOGIN(true))
         }
         check()
-    }, [])
+    }, [store])
     return (
         <HeaderWrapper>
             <LogoWrppaer mobile = {mobile}>
@@ -85,7 +85,7 @@ const Header : React.FC<RouteComponentProps & Props> = ({history, mobile, store}
                 :
                 null
             }
-            <LoginWrapper mobile = {mobile} onClick = {() => {dispatch(ISLOGIN(false)); removeCookie('token'); history.push('/login')}}>
+            <LoginWrapper mobile = {mobile} onClick = {() => { removeCookie('token'); dispatch(ISLOGIN(false)); history.push('/login'); setAccount({...account, name : '', number : ''})}}>
                 {   store ?
                     'Logout' : 'Login'
                 }

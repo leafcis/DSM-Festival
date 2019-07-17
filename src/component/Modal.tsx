@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import InfoImage from '../assests/info.png'
+import isMobile from '../utils/isMobile'
 
 const ModalWrapper = styled.div`
     display: flex;
@@ -15,7 +17,7 @@ const ModalWrapper = styled.div`
     .wrapper {
         box-sizing: border-box;
         padding-top: 5vh;
-        padding-bottom: 5vh;
+        padding-bottom: 9vh;
         ${props => props.mobile ? `width: 80vw;` : `width: 34vw;`}
         height: 81vh;
         background-color: #ffffff;
@@ -34,8 +36,8 @@ const ModalWrapper = styled.div`
         }
 
         .list--wrapper {
-            padding-left: 3.3vw;
-            padding-right: 3.3vw;
+            padding-left: 3vw;
+            padding-right: 3vw;
             height: 60vh;
             background-color: #ffffff;
             display: flex;
@@ -43,7 +45,14 @@ const ModalWrapper = styled.div`
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            ${props => props.mobile ? `width: 80vw;` : `width: 34vw;`}
+            ${props => props.mobile ? `width: 80vw;` : `width: 100%;`}
+        }
+
+        .info--image {
+            background-image: url(${InfoImage});
+            ${props => props.mobile ? `width: 80vw; height: 44vh;` : `width: 100%; height: 90%;`}
+            background-size: cover;
+            background-repeat: no-repeat;
         }
     }
 `
@@ -65,7 +74,9 @@ const Modal : FC<Props> = ({mobile, setState, state, list}) => {
                     { list }
                 </div>
                 :
-                <div className = "info--image" />
+                <div className = "list--wrapper">
+                    <div className = "info--image" />
+                </div>
                 }
             </div>
         </ModalWrapper>

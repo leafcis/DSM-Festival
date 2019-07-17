@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useStore } from 'react-redux'
 import Login from '../component/Login'
 import isMobile from '../utils/isMobile'
 import axios from 'axios'
 import urlAddress from '../utils/urlAddress'
 import { ISLOGIN } from '../actions'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, Redirect } from 'react-router-dom'
 import { setCookie } from '../utils/cookie';
 
 interface State {
@@ -16,6 +16,7 @@ interface State {
 const mobile : boolean = isMobile()
 
 const LoginContainer : React.FC<RouteComponentProps> = ({history}) => {
+    const store = useStore().getState().isLogin
     const dispatch = useDispatch();
     const LoginHandle = async (id, pw) => {
         try {
@@ -23,10 +24,9 @@ const LoginContainer : React.FC<RouteComponentProps> = ({history}) => {
                 id : id,
                 pw : pw,
             })
-            console.log(result);
+            setCookie('token', result.data.accessToken)
             dispatch(ISLOGIN(true))
             alert('로그인에 성공하셨습니다!')
-            setCookie('token', result.data.accessToken)
             history.push('/')
         }
         catch (err) {
@@ -38,8 +38,12 @@ const LoginContainer : React.FC<RouteComponentProps> = ({history}) => {
         password : ""
     });
 
-    return ( 
+    return (
+        <>
+        { store ? <Redirect to="/" /> :
         <Login mobile = {mobile} account = {account} onLogin = {setAccount} onLoginHandle = {() => {LoginHandle(account.id, account.password)}}/>
+        }
+        </>
     )
 }
 
